@@ -6,11 +6,8 @@ Projeto de Extensão Universitária — Instituto Mauá de Tecnologia × Cespede
 
 ## Integrantes do Grupo
 
-| Nome | RA | Função |
-|------|----|--------|
-|      |    |        |
-|      |    |        |
-|      |    |        |
+João Pedro Schimidt Mantovani|25.00922-6|
+Pedro Rodrigues Furlaneti|25.00897-0|
 
 ---
 
