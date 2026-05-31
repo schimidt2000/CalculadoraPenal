@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Penal | Cespedes Lourenço Advogados</title>
+    <link rel="icon" href="/imagens/favicon.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ HEADER -->
+<header>
+    <div class="header-inner">
+        <div class="header-logos">
+            <img src="/imagens/Logo_CESPEDS-LOURENCO-ADV_negativo.png"
+                 alt="Cespedes Lourenço Advogados"
+                 class="header-logo"
+                 onerror="this.style.display='none'">
+        </div>
+        <div class="header-title">
+            <h1>Calculadora Penal</h1>
+            <p>Progressão de Regime &amp; Livramento Condicional — Lei 13.964/19</p>
+        </div>
+        <span class="header-badge">Projeto de Extensão IMT</span>
+    </div>
+</header>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════ FORMULÁRIO -->
+<div id="formView" class="container">
+
+    <div class="section-heading">
+        <h2>Informe os dados da condenação</h2>
+        <p>Todos os campos marcados com * são obrigatórios</p>
+    </div>
+
+    <div id="errorBanner" class="error-banner" role="alert"></div>
+
+    <form id="calculadoraForm" novalidate>
+
+        <!-- Seção 1 — Dados Pessoais -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-header-num">1</div>
+                <h3>Dados Pessoais</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label for="nomeCompleto">Nome Completo *</label>
+                        <input type="text" id="nomeCompleto" name="nomeCompleto"
+                               required autocomplete="name"
+                               placeholder="Nome completo do apenado">
+                    </div>
+                </div>
+                <div class="form-grid" style="margin-top:1rem">
+                    <div class="form-group">
+                        <label for="whatsapp">Número de WhatsApp *</label>
+                        <input type="tel" id="whatsapp" name="whatsapp"
+                               required autocomplete="tel"
+                               placeholder="(11) 9 8949-8044"
+                               maxlength="16">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email"
+                               autocomplete="email"
+                               placeholder="email@exemplo.com">
+                    </div>
+                </div>
+                <div class="form-grid full" style="margin-top:1rem">
+                    <div class="form-group">
+                        <label for="numeroProcesso">Número do Processo</label>
+                        <input type="text" id="numeroProcesso" name="numeroProcesso"
+                               placeholder="0000001-12.2023.8.26.0100"
+                               maxlength="25">
+                        <span class="field-hint">Formato: NNNNNNN-DD.AAAA.J.TT.OOOO (opcional)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção 2 — Dados da Pena -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-header-num">2</div>
+                <h3>Dados da Pena</h3>
+            </div>
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label>Pena Total *</label>
+                    <div class="period-group">
+                        <div class="period-item">
+                            <input type="number" id="penaAnos" name="penaAnos"
+                                   min="0" max="99" value="0">
+                            <label for="penaAnos">Anos</label>
+                        </div>
+                        <div class="period-item">
+                            <input type="number" id="penaMeses" name="penaMeses"
+                                   min="0" max="11" value="0">
+                            <label for="penaMeses">Meses</label>
+                        </div>
+                        <div class="period-item">
+                            <input type="number" id="penaDias" name="penaDias"
+                                   min="0" max="30" value="0">
+                            <label for="penaDias">Dias</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top:1rem">
+                    <label for="dataInicio">Data de Início do Cumprimento da Pena *</label>
+                    <input type="date" id="dataInicio" name="dataInicio" required>
+                </div>
+
+                <div class="form-group" style="margin-top:1rem">
+                    <label>Tempo de Detração <span style="font-weight:400;color:var(--cinza-texto)">(tempo já cumprido antes da sentença)</span></label>
+                    <div class="period-group">
+                        <div class="period-item">
+                            <input type="number" id="detracaoAnos" name="detracaoAnos"
+                                   min="0" max="99" value="0">
+                            <label for="detracaoAnos">Anos</label>
+                        </div>
+                        <div class="period-item">
+                            <input type="number" id="detracaoMeses" name="detracaoMeses"
+                                   min="0" max="11" value="0">
+                            <label for="detracaoMeses">Meses</label>
+                        </div>
+                        <div class="period-item">
+                            <input type="number" id="detracaoDias" name="detracaoDias"
+                                   min="0" max="30" value="0">
+                            <label for="detracaoDias">Dias</label>
+                        </div>
+                    </div>
+                    <span class="field-hint">Preencha 0 caso não haja detração. Ex.: prisão preventiva, domiciliar.</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Seção 3 — Classificação -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-header-num">3</div>
+                <h3>Classificação do Crime</h3>
+            </div>
+            <div class="card-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="tipoCrime">Tipo de Crime *</label>
+                        <select id="tipoCrime" name="tipoCrime" required>
+                            <option value="">Selecione...</option>
+                            <option value="COMUM">Comum</option>
+                            <option value="COMUM_VIOLENCIA">Comum com Violência ou Grave Ameaça</option>
+                            <option value="HEDIONDO">Hediondo / Equiparado</option>
+                            <option value="HEDIONDO_MORTE">Hediondo com Resultado Morte</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="statusApenado">Status do Apenado *</label>
+                        <select id="statusApenado" name="statusApenado" required>
+                            <option value="">Selecione...</option>
+                            <option value="PRIMARIO">Primário</option>
+                            <option value="REINCIDENTE">Reincidente</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="fracaoPreview" class="field-hint" style="margin-top:0.85rem;padding:0.6rem 0.85rem;background:var(--cinza-fundo);border-radius:6px;display:none;"></div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary" id="btnCalcular">
+                <span class="btn-text">Calcular Datas de Progressão</span>
+                <span class="spinner"></span>
+            </button>
+        </div>
+
+    </form>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ RESULTADOS -->
+<div id="resultsView" class="container hidden">
+
+    <!-- Cabeçalho do resultado -->
+    <div class="result-head">
+        <h2>Resultado do Cálculo</h2>
+        <div class="result-nome" id="resNome"></div>
+        <div class="result-meta">
+            <div class="meta-item">
+                <span class="meta-label">Pena Líquida</span>
+                <span class="meta-value" id="resPenaLiquida"></span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Data Base</span>
+                <span class="meta-value" id="resDataBase"></span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Fração de Progressão</span>
+                <span class="meta-value" id="resFracaoProgressao"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards de datas -->
+    <div class="date-cards">
+
+        <div class="date-card card-semiaberto">
+            <div class="date-card-regime">Regime Semiaberto</div>
+            <div class="date-card-label">Data prevista para progressão</div>
+            <div class="date-card-value" id="resSemiaberto"></div>
+        </div>
+
+        <div class="date-card card-aberto">
+            <div class="date-card-regime">Regime Aberto</div>
+            <div class="date-card-label">Data prevista para progressão</div>
+            <div class="date-card-value" id="resAberto"></div>
+            <div class="alerta-fim-pena" id="alertaFimPena">
+                * Coincide com o término da pena líquida
+            </div>
+        </div>
+
+        <div class="date-card" id="cardLC">
+            <div class="date-card-regime" id="lcRegimeLabel">Livramento Condicional</div>
+            <div class="date-card-label">Data prevista</div>
+            <div class="date-card-value" id="resLC"></div>
+            <div class="date-card-sub" id="resFracaoLC"></div>
+        </div>
+
+    </div>
+
+    <!-- Aviso legal -->
+    <div class="disclaimer">
+        <strong>Atenção:</strong> Este cálculo é apenas uma estimativa baseada nas informações fornecidas e
+        na legislação vigente (Lei 13.964/19 — Pacote Anticrime e Art. 83 do Código Penal).
+        Fatores como incidentes de execução, reconhecimento de trabalho/estudo e decisões judiciais
+        individuais podem alterar as datas. <strong>Consulte sempre um advogado especializado</strong> para
+        análise completa do seu caso.
+    </div>
+
+    <!-- CTA WhatsApp -->
+    <div class="cta-section">
+        <p>Precisa de assessoria jurídica especializada para este caso?</p>
+        <a href="https://api.whatsapp.com/send/?phone=5511989498044&text=Ol%C3%A1%2C+utilizei+a+calculadora+penal+e+gostaria+de+uma+assessoria."
+           target="_blank" rel="noopener noreferrer"
+           class="btn-whatsapp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="white">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Quero Falar com um Advogado
+        </a>
+    </div>
+
+    <div class="back-row">
+        <button type="button" class="btn-secondary" onclick="voltarFormulario()">
+            &larr; Fazer Novo Cálculo
+        </button>
+    </div>
+
+</div>
+</main>
+
+<!-- ═══════════════════════════════════════════════════ FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <p class="footer-destaque">Calculadora Penal — Projeto de Extensão Universitária</p>
+        <p>Instituto Mauá de Tecnologia &times; Cespedes Lourenço Advogados</p>
+        <p>Esta ferramenta tem caráter informativo e não substitui consulta jurídica especializada.</p>
+    </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
