@@ -32,7 +32,7 @@ O objetivo é democratizar o acesso à informação jurídica, permitindo que fa
 │              SERVIDOR KTOR (Netty)           │
 │  ┌─────────────────────────────────────┐    │
 │  │ Routing.kt — recebe e roteia        │    │
-│  │ Serialization.kt — JSON ↔ objetos   │    │
+│  │ ContentNegotiation — JSON ↔ objetos │    │
 │  └──────────────┬──────────────────────┘    │
 │  ┌──────────────▼──────────────────────┐    │
 │  │ PenalCalculator.kt — motor de       │    │
@@ -124,7 +124,24 @@ CTA WhatsApp → Encaminha para atendimento jurídico
 
 ---
 
-## Configuração do Ambiente e Execução
+## Infraestrutura de Execução do Projeto
+
+A aplicação é **autocontida**: o próprio Ktor sobe um servidor HTTP embutido (Netty), sem necessidade de instalar Apache, Nginx ou Tomcat separadamente.
+
+| Componente         | Detalhe                                                   |
+|--------------------|-----------------------------------------------------------|
+| Servidor HTTP      | Netty embutido via Ktor (sem servidor externo)            |
+| Porta padrão       | `8080` (configurável em `Application.kt`)                 |
+| Plataforma         | JVM (Java Virtual Machine) — compatível com Windows, Linux e macOS |
+| Mínimo de RAM      | ~256 MB para execução local                               |
+| Frontend           | Servido estaticamente pelo próprio Ktor (sem Node.js)     |
+| Imagens/Assets     | Lidos do sistema de arquivos local (`imagens-logos/`)     |
+
+> O projeto **não depende de banco de dados** nesta versão. Todos os cálculos são realizados em memória a cada requisição.
+
+---
+
+## Configuração do Ambiente para Instalação
 
 ### Pré-requisitos
 
@@ -145,7 +162,7 @@ Kotlin/
         │   ├── Application.kt
         │   ├── calculator/PenalCalculator.kt
         │   ├── models/Models.kt
-        │   └── plugins/Routing.kt, Serialization.kt
+        │   └── plugins/Routing.kt
         └── resources/
             ├── logback.xml
             └── static/
@@ -260,15 +277,36 @@ Calcula as datas de progressão e livramento condicional.
 
 ---
 
-## Base Legal
+## Futuras Melhorias (Roadmap)
 
-- **Lei 13.964/2019 — Pacote Anticrime** (alteração do Art. 112 da LEP — progressão de regime)
-- **Art. 83 do Código Penal** (livramento condicional)
+Funcionalidades planejadas para versões futuras do projeto:
+
+| Prioridade | Melhoria                                                                 |
+|------------|--------------------------------------------------------------------------|
+| Alta       | Geração de relatório em PDF com os resultados do cálculo                 |
+| Alta       | Cálculo de remição por trabalho (Art. 126 LEP) e por estudo              |
+| Média      | Histórico de cálculos salvos (integração com banco de dados)             |
+| Média      | Envio automático do resultado por e-mail ou WhatsApp                     |
+| Média      | Painel administrativo para o escritório visualizar consultas realizadas  |
+| Baixa      | Autenticação de usuários (login para salvar casos)                       |
+| Baixa      | Suporte a múltiplos idiomas (internacionalização)                        |
+| Baixa      | Modo escuro na interface                                                 |
 
 ---
 
-## Observações Importantes
+## Referências
 
-- Os cálculos são estimativas baseadas nas frações legais. Não incluem benefícios como remição por trabalho/estudo, incidentes de execução ou decisões judiciais individualizadas.
-- Esta ferramenta tem caráter **informativo e educacional**. Não substitui consulta jurídica especializada.
-- Para assessoria profissional: [Cespedes Lourenço Advogados](https://api.whatsapp.com/send/?phone=5511989498044)
+### Base Legal
+- **Lei nº 13.964/2019** — Pacote Anticrime. Altera o Art. 112 da Lei de Execução Penal, estabelecendo novas frações para progressão de regime. Disponível em: [planalto.gov.br](https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm)
+- **Decreto-Lei nº 2.848/1940** — Código Penal Brasileiro, Art. 83 (Livramento Condicional). Disponível em: [planalto.gov.br](https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm)
+- **Lei nº 7.210/1984** — Lei de Execução Penal (LEP). Disponível em: [planalto.gov.br](https://www.planalto.gov.br/ccivil_03/leis/l7210.htm)
+
+### Tecnologias
+- Ktor Documentation — [ktor.io/docs](https://ktor.io/docs/)
+- Kotlin Language Reference — [kotlinlang.org](https://kotlinlang.org/docs/)
+- kotlinx.serialization — [github.com/Kotlin/kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)
+- Java Time API (java.time) — [docs.oracle.com](https://docs.oracle.com/en/java/se/17/docs/api/java.base/java/time/package-summary.html)
+
+### Instituições Parceiras
+- Instituto Mauá de Tecnologia — [maua.br](https://www.maua.br)
+- Cespedes Lourenço Advogados — Escritório parceiro do projeto de extensão
